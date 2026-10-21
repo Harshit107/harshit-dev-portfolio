@@ -13,6 +13,7 @@ import appStoreImg from '../assets/images/appStore.png';
 import expensifyImg from '../assets/images/expensify-img.png';
 import freelyEmailImg from '../assets/images/freely-email.png';
 import uemConnectImg from '../assets/images/uem-connect-new.png';
+import oneloginDashboardImg from '../assets/images/onelogin-dashboard.png';
 
 export const personalData = {
   name: 'Harshit Keshari',
@@ -109,8 +110,8 @@ export const projects: Project[] = [
     tagline: 'Enterprise SSO, Decoupled RBAC & Two-Factor QR Security',
     description: 'Full-stack authentication and identity suite featuring a decoupled React 19 + TypeScript + Tailwind v4 client with QR code 2FA challenge workflows, paired with an Express/MongoDB backend implementing BCrypt, JWT session persistence, and granular permission enforcement.',
     codeLink: 'https://github.com/Harshit107/OneLogin',
-    liveLink: 'https://github.com/Harshit107/OneLogin',
-    image: expensifyImg,
+    liveLink: 'https://account.harshit107.online',
+    image: oneloginDashboardImg,
     tech: ['React 19', 'TypeScript', 'Tailwind CSS v4', 'Node.js', 'Express', 'JWT', 'QR 2FA', 'MongoDB'],
     featured: true
   },
@@ -120,7 +121,7 @@ export const projects: Project[] = [
     tagline: 'Collaborative LMS & WebRTC Real-Time Conferencing',
     description: 'A full-stack collaborative platform with Role-Based Access Control (RBAC), real-time Jitsi WebRTC video conferencing, secure document upload/sharing with multi-tier visibility constraints, and automated transactional AWS-SES notification workflows.',
     codeLink: 'https://github.com/Harshit107/DigitalClassroom',
-    liveLink: 'https://Harshit107.tech',
+    liveLink: 'https://digitalclassroom.netlify.app/',
     image: digitalClassroomImg,
     tech: ['React', 'Android', 'Node.js', 'Express', 'MongoDB', 'AWS-SES', 'Jitsi WebRTC', 'RBAC'],
     featured: true
@@ -153,7 +154,7 @@ export const projects: Project[] = [
     tagline: 'Campus Communication & Student Portal',
     description: 'A mobile hub connecting thousands of university students and faculty, featuring live announcements, syllabus trackers, campus notifications, and cloud document delivery.',
     codeLink: 'https://www.9apps.com/android-apps/UEM-JAIPUR/',
-    liveLink: 'https://www.9apps.com/android-apps/UEM-JAIPUR/',
+    liveLink: 'https://apkpure.com/uem-connect/com.harshit.uemjaipur',
     image: uemConnectImg,
     tech: ['Android', 'Firebase Realtime DB', 'AWS SES', 'Push Notifications'],
     featured: false

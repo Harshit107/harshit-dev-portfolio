@@ -12,6 +12,11 @@ const CanvasContainer = styled.div`
   align-items: center;
   justify-content: center;
   pointer-events: auto;
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
 
   canvas {
     width: 100% !important;
@@ -140,11 +145,17 @@ export const HeroSculpture: React.FC = () => {
     pointLight2.position.set(-4, -4, 2);
     scene.add(pointLight2);
 
-    // Mouse Interaction
+    // Mouse & Drag Interaction
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
     let targetY = 0;
+
+    let isDragging = false;
+    let prevPointerX = 0;
+    let prevPointerY = 0;
+    let dragVelocityX = 0;
+    let dragVelocityY = 0;
 
     const onPointerMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
@@ -152,9 +163,34 @@ export const HeroSculpture: React.FC = () => {
       const y = (e.clientY - rect.top) / rect.height - 0.5;
       targetX = x * 2;
       targetY = y * 2;
+
+      if (isDragging) {
+        const deltaX = e.clientX - prevPointerX;
+        const deltaY = e.clientY - prevPointerY;
+        dragVelocityX = deltaX * 0.008;
+        dragVelocityY = deltaY * 0.008;
+        outerMesh.rotation.y += dragVelocityX;
+        outerMesh.rotation.x += dragVelocityY;
+        innerMesh.rotation.y += dragVelocityX * 1.2;
+        innerMesh.rotation.x += dragVelocityY * 1.2;
+        prevPointerX = e.clientX;
+        prevPointerY = e.clientY;
+      }
+    };
+
+    const onPointerDown = (e: MouseEvent) => {
+      isDragging = true;
+      prevPointerX = e.clientX;
+      prevPointerY = e.clientY;
+    };
+
+    const onPointerUp = () => {
+      isDragging = false;
     };
 
     window.addEventListener('mousemove', onPointerMove, { passive: true });
+    container.addEventListener('mousedown', onPointerDown);
+    window.addEventListener('mouseup', onPointerUp);
 
     // Responsive Resize
     const handleResize = () => {
@@ -179,12 +215,20 @@ export const HeroSculpture: React.FC = () => {
       mouseX += (targetX - mouseX) * 0.05;
       mouseY += (targetY - mouseY) * 0.05;
 
-      // Rotations
-      outerMesh.rotation.x = elapsedTime * 0.15 + mouseY * 0.4;
-      outerMesh.rotation.y = elapsedTime * 0.2 + mouseX * 0.4;
+      // Inertia decay if not dragging
+      if (!isDragging) {
+        dragVelocityX *= 0.95;
+        dragVelocityY *= 0.95;
+        outerMesh.rotation.y += dragVelocityX;
+        outerMesh.rotation.x += dragVelocityY;
+      }
 
-      innerMesh.rotation.x = -elapsedTime * 0.25 - mouseY * 0.3;
-      innerMesh.rotation.y = elapsedTime * 0.3 - mouseX * 0.3;
+      // Base Rotations
+      outerMesh.rotation.x += 0.003 + mouseY * 0.02;
+      outerMesh.rotation.y += 0.005 + mouseX * 0.02;
+
+      innerMesh.rotation.x += -0.005 - mouseY * 0.015;
+      innerMesh.rotation.y += 0.008 - mouseX * 0.015;
 
       particleCloud.rotation.y = elapsedTime * 0.05;
       particleCloud.rotation.x = elapsedTime * 0.03;
@@ -197,6 +241,8 @@ export const HeroSculpture: React.FC = () => {
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener('mousemove', onPointerMove);
+      container.removeEventListener('mousedown', onPointerDown);
+      window.removeEventListener('mouseup', onPointerUp);
       window.removeEventListener('resize', handleResize);
       renderer.dispose();
       outerGeo.dispose();

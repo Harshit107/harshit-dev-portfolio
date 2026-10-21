@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ThemeProvider } from './theme/ThemeContext';
 import { GlobalStyles } from './theme/GlobalStyles';
 import { AtmosphereBackground } from './components/3d/AtmosphereBackground';
+import { ScrollFloatingShapes } from './components/3d/ScrollFloatingShapes';
 import { Navbar } from './components/navigation/Navbar';
 import { Hero } from './components/sections/Hero';
 import { About } from './components/sections/About';
@@ -30,6 +31,7 @@ export const App: React.FC = () => {
       <GlobalStyles />
       <AppContainer>
         <AtmosphereBackground />
+        <ScrollFloatingShapes />
         <Navbar />
         <MainContent>
           <Hero />
