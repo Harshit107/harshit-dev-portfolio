@@ -44,7 +44,14 @@ export const experiences: Experience[] = [
     name: 'Cornerstone OnDemand',
     jobTitle: 'Software Developer',
     year: 'May 2024 — Present (Pune, IN)',
-    work: 'Lead end-to-end development of configurable workflow and permission-management platforms, enabling dynamic multi-level forms, granular field-level access controls, and self-service administration tools. Architected a JSON-based configuration migration pipeline across staging → pilot → production with schema validation, async processing, and rollback safety (reducing manual setup effort by 70%). Diagnosed GraphQL re-fetching bottlenecks and integrated client-side caching & batching via Apollo Client, reducing redundant API calls and cutting render latency by 30%. Built centralized configuration dashboards to dynamically toggle UI feature flags and logging levels, slashing debug cycles from 2 hrs to 30 mins. Maintained Black Duck compliance and WCAG semantic accessibility.',
+    work: 'Lead end-to-end development of configurable workflow and permission-management platforms, enabling dynamic multi-level forms, granular field-level access controls, and self-service administration tools.',
+    bulletPoints: [
+      'Lead end-to-end development of configurable workflow and permission-management platforms, enabling administrators to create dynamic multi-level forms, enforce granular field-level access controls, and manage enterprise processes through self-service configuration tools while aligning authorization logic with API contracts.',
+      'Designed and implemented a JSON-based configuration migration workflow to export and promote configuration and metadata across staging → pilot → production environments with schema validation, async processing, and rollback safety, reducing manual setup effort by 70%.',
+      'Identified network re-fetching in GraphQL queries causing UI latency and implemented client-side caching and batching using Apollo Client, reducing redundant API calls and improving render latency by 30%.',
+      'Improved accessibility with semantic markup and ARIA attributes, maintained Black Duck security compliance, and regularly updated packages across admin dashboards while preserving extensible component architecture.',
+      'Designed centralized configuration dashboard to dynamically toggle UI feature flags and logging levels across non-production environments, reducing developer debugging turnaround time during cycles from 2 hrs to 30 mins.'
+    ],
     logo: cornerstoneLogo,
     skills: [
       'React',
@@ -65,7 +72,13 @@ export const experiences: Experience[] = [
     name: 'Hexagon Manufacturing Intelligence',
     jobTitle: 'Jr Software Developer (R & D)',
     year: 'Dec 2022 — May 2024 (1.5 Years • Pune, IN)',
-    work: 'Engineered a specialized C# export module to serialize and transform complex 3D mechanical models into international standard REXS-compliant format, establishing an RPC-based inter-service communication layer for reliable data exchange. Developed an Apache ECharts-based visualization module supporting dynamic real-time chart rendering and configuration-driven customization. Optimized client-side rendering performance for large-scale engineering datasets through high-efficiency memory management and state batching.',
+    work: 'Engineered high-performance serialization modules and real-time visualization systems for large engineering datasets.',
+    bulletPoints: [
+      'Designed a C# export module to serialize and transform engineering models into REXS-compliant format, establishing a robust RPC-based inter-service communication layer to enable reliable data exchange.',
+      'Developed Apache ECharts–based JS visualization module supporting dynamic chart rendering, configuration-driven customization, and real-time updates, significantly improving data analysis workflows and UX.',
+      'Worked on optimizing client-side rendering performance for large engineering datasets by implementing efficient data handling and state update strategies within visualization components.',
+      'Collaborated across distributed cross-functional teams to integrate RPC endpoints, perform unit validation, and adhere to strict geometric serialization tolerances.'
+    ],
     logo: hexagonLogo,
     skills: ['React', 'JavaScript', 'C#', 'Apache ECharts', 'REXS 3D Spec', 'RPC Protocol', 'State Optimization'],
     current: false
@@ -75,7 +88,11 @@ export const experiences: Experience[] = [
     name: 'MTX Group',
     jobTitle: 'Consultant Trainee',
     year: 'Jan 2022 — Nov 2022 (11 Months • Hyderabad, IN)',
-    work: 'Engineered Salesforce Lightning Web Components (LWC) to streamline customer complaint workflows and automate Web-to-Case data ingestion. Formulated customized data models and robust validation logic using Apex and SOQL, reducing manual customer service processing effort by 60%.',
+    work: 'Engineered Salesforce Lightning Web Components and automated customer service ingestion workflows.',
+    bulletPoints: [
+      'Developed Salesforce Lightning Web Components (LWC) to streamline customer complaint workflows and automate Web-to-Case data ingestion.',
+      'Customized data models and validation logic using Apex and SOQL, reducing manual customer service processing effort by 60%.'
+    ],
     logo: mtxLogo,
     skills: ['Salesforce LWC', 'Apex', 'SOQL', 'JavaScript', 'Workflow Automation'],
     current: false
@@ -85,7 +102,11 @@ export const experiences: Experience[] = [
     name: 'Teknesya Networks Private Limited',
     jobTitle: 'Android Developer',
     year: 'Feb 2020 — Jul 2020 (5 Months)',
-    work: 'Implemented time-slot scheduling and smart driver instruction pipelines on high-traffic food delivery apps using the Volley HTTP library. Integrated efficient server-side pagination and real-time search in an Insurance mobile platform.',
+    work: 'Engineered core features across high-traffic mobile delivery and insurance applications.',
+    bulletPoints: [
+      'Implemented time slot and instruction feature on food delivery mobile application using Volley HTTP library.',
+      'Implemented pagination and real-time search in an insurance application, drastically improving query and render speeds.'
+    ],
     logo: tekneyaLogo,
     skills: ['Android', 'Java', 'Volley HTTP', 'Pagination', 'Search Optimization'],
     current: false

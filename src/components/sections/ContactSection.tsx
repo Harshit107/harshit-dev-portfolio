@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import {
@@ -8,7 +8,10 @@ import {
   MapPin,
   Send,
   Copy,
-  Check
+  Check,
+  Loader2,
+  AlertCircle,
+  ExternalLink
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, TwitterIcon } from '../ui/SocialIcons';
 import { Container } from '../ui/Container';
@@ -17,6 +20,11 @@ import { GlassCard } from '../ui/GlassCard';
 import { Button } from '../ui/Button';
 import { personalData, socialLinks } from '../../data/portfolioData';
 import { breakpoints } from '../../theme/theme';
+
+const spin = keyframes`
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+`;
 
 const ContactWrapper = styled.section`
   padding: 6rem 0;
@@ -201,23 +209,67 @@ const FormGroup = styled.div`
   }
 `;
 
-const FeedbackToast = styled(motion.div)`
-  padding: 0.85rem 1.25rem;
-  border-radius: 10px;
-  background: ${({ theme }) => theme.accentMuted};
-  border: 1px solid ${({ theme }) => theme.accentGlow};
-  color: ${({ theme }) => theme.accent};
+const Spinner = styled(Loader2)`
+  animation: ${spin} 1s linear infinite;
+`;
+
+const FeedbackToast = styled(motion.div)<{ $variant?: 'success' | 'error' }>`
+  padding: 0.95rem 1.25rem;
+  border-radius: 12px;
+  background: ${({ theme, $variant }) =>
+    $variant === 'error' ? 'rgba(239, 68, 68, 0.12)' : theme.accentMuted};
+  border: 1px solid
+    ${({ theme, $variant }) =>
+      $variant === 'error' ? 'rgba(239, 68, 68, 0.35)' : theme.accentGlow};
+  color: ${({ theme, $variant }) =>
+    $variant === 'error' ? '#ef4444' : theme.accent};
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 500;
   display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  .header-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+  }
+
+  .fallback-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 0.4rem;
+  }
+`;
+
+const FallbackBtn = styled.a`
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(239, 68, 68, 0.25);
+    text-decoration: none;
+  }
 `;
 
 export const ContactSection: React.FC = () => {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
-  const [formSent, setFormSent] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [statusMessage, setStatusMessage] = useState('');
 
   const handleCopy = (text: string, key: string) => {
     navigator.clipboard.writeText(text);
@@ -230,20 +282,63 @@ export const ContactSection: React.FC = () => {
     setTimeout(() => setCopiedKey(null), 2500);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 }
-    });
+    setIsSubmitting(true);
+    setStatus('idle');
+    setStatusMessage('');
 
-    setFormSent(true);
-    setFormData({ name: '', email: '', message: '' });
-    setTimeout(() => setFormSent(false), 5000);
+    try {
+      // Integrated with Harshit's live FreelyEmail-API endpoint
+      const response = await fetch('https://freelyemail-api.harshit107.online/api/v1/emails/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          to: 'Harshit107.in@gmail.com',
+          recipient: 'Harshit107.in@gmail.com',
+          appName: 'Harshit Developer Portfolio',
+          app: 'Harshit Developer Portfolio',
+          sender: formData.name,
+          replyTo: formData.email,
+          subject: `Portfolio Message from ${formData.name}`,
+          message: `Sender Name: ${formData.name}\nSender Email: ${formData.email}\n\nMessage:\n${formData.message}`
+        })
+      });
+
+      const data = await response.json().catch(() => null);
+
+      if (response.ok && (!data || data.success !== false)) {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+        setStatus('success');
+        setStatusMessage("Thank you! Your message was delivered directly via FreelyEmail API. I'll get back to you shortly.");
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        const errorDesc = data?.error?.message || `Server responded with status ${response.status}`;
+        throw new Error(errorDesc);
+      }
+    } catch (err: unknown) {
+      console.warn('FreelyEmail API dispatch error, enabling fallback:', err);
+      setStatus('error');
+      setStatusMessage('Direct API dispatch encountered a network interruption. You can send instantly via your email client:');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  const mailtoFallbackUrl = `mailto:${personalData.email}?subject=${encodeURIComponent(
+    `Portfolio Inquiry from ${formData.name || 'Developer Contact'}`
+  )}&body=${encodeURIComponent(
+    `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+  )}`;
 
   return (
     <ContactWrapper id="contact">
@@ -354,6 +449,7 @@ export const ContactSection: React.FC = () => {
                     placeholder="e.g. Alex Morgan"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    disabled={isSubmitting}
                   />
                 </FormGroup>
 
@@ -366,6 +462,7 @@ export const ContactSection: React.FC = () => {
                     placeholder="e.g. alex@company.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    disabled={isSubmitting}
                   />
                 </FormGroup>
 
@@ -377,6 +474,7 @@ export const ContactSection: React.FC = () => {
                     placeholder="Tell me about your project, idea, or inquiry..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    disabled={isSubmitting}
                   />
                 </FormGroup>
 
@@ -384,20 +482,52 @@ export const ContactSection: React.FC = () => {
                   type="submit"
                   variant="primary"
                   size="lg"
-                  icon={<Send size={18} />}
+                  icon={isSubmitting ? <Spinner size={18} /> : <Send size={18} />}
+                  disabled={isSubmitting}
                 >
-                  Send Message
+                  {isSubmitting ? 'Sending via FreelyEmail API...' : 'Send Message'}
                 </Button>
 
                 <AnimatePresence>
-                  {formSent && (
+                  {status === 'success' && (
                     <FeedbackToast
+                      $variant="success"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                     >
-                      <Check size={18} />
-                      <span>Thank you! Your message has been prepared. I'll get back to you shortly.</span>
+                      <div className="header-row">
+                        <Check size={18} />
+                        <span>Dispatched successfully!</span>
+                      </div>
+                      <div>{statusMessage}</div>
+                    </FeedbackToast>
+                  )}
+
+                  {status === 'error' && (
+                    <FeedbackToast
+                      $variant="error"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                    >
+                      <div className="header-row">
+                        <AlertCircle size={18} />
+                        <span>API Delivery Notice</span>
+                      </div>
+                      <div>{statusMessage}</div>
+                      <div className="fallback-actions">
+                        <FallbackBtn href={mailtoFallbackUrl}>
+                          <Mail size={14} /> Open in Email App <ExternalLink size={12} />
+                        </FallbackBtn>
+                        <FallbackBtn
+                          as="button"
+                          type="button"
+                          onClick={() => handleCopy(`${formData.name} (${formData.email}): ${formData.message}`, 'copied-msg')}
+                        >
+                          <Copy size={14} /> Copy Message
+                        </FallbackBtn>
+                      </div>
                     </FeedbackToast>
                   )}
                 </AnimatePresence>

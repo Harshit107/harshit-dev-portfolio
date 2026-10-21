@@ -122,17 +122,37 @@ const MainHeading = styled.h1`
 
 const TypewriterWrapper = styled.div`
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 0.35rem;
   font-family: 'JetBrains Mono', monospace;
-  font-size: clamp(1rem, 1.8vw, 1.35rem);
-  font-weight: 600;
   color: ${({ theme }) => theme.textPrimary};
-  min-height: 2.2rem;
-  flex-wrap: wrap;
 
-  .terminal-prompt {
-    color: ${({ theme }) => theme.accent};
+  .prompt-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+    font-weight: 500;
+    color: ${({ theme }) => theme.textSecondary};
+
+    .terminal-prompt {
+      color: ${({ theme }) => theme.accent};
+      font-weight: 700;
+    }
+  }
+
+  .phrase-line {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: clamp(1.05rem, 1.9vw, 1.45rem);
+    font-weight: 700;
+    min-height: 2.2rem;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .highlight-word {
@@ -302,10 +322,14 @@ export const Hero: React.FC = () => {
             </MainHeading>
 
             <TypewriterWrapper>
-              <span className="terminal-prompt">&gt;</span>
-              <span>Specializing in </span>
-              <span className="highlight-word">{currentText}</span>
-              <span className="cursor" />
+              <div className="prompt-label">
+                <span className="terminal-prompt">&gt;</span>
+                <span>Specializing in:</span>
+              </div>
+              <div className="phrase-line">
+                <span className="highlight-word">{currentText}</span>
+                <span className="cursor" />
+              </div>
             </TypewriterWrapper>
 
             <BioSnippet>

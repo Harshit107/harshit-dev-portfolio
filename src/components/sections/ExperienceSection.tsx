@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { Calendar } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Calendar, ChevronDown, ChevronUp } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { SectionHeading } from '../ui/SectionHeading';
 import { GlassCard } from '../ui/GlassCard';
@@ -147,11 +147,55 @@ const DurationBadge = styled.div`
   margin-bottom: 1rem;
 `;
 
-const WorkDescription = styled.p`
-  font-size: 0.925rem;
+const BulletList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+`;
+
+const BulletItem = styled(motion.li)`
+  position: relative;
+  padding-left: 1.35rem;
+  font-size: 0.9rem;
   color: ${({ theme }) => theme.textSecondary};
-  line-height: 1.65;
+  line-height: 1.6;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0.55rem;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.accent};
+    box-shadow: 0 0 6px ${({ theme }) => theme.accentGlow};
+  }
+`;
+
+const ShowMoreToggle = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.accent};
+  background: ${({ theme }) => theme.accentMuted};
+  border: 1px solid ${({ theme }) => theme.borderColor};
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
   margin-bottom: 1.25rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.accentGlow};
+    transform: translateY(-1px);
+  }
 `;
 
 const SkillsRow = styled.div`
@@ -161,6 +205,15 @@ const SkillsRow = styled.div`
 `;
 
 export const ExperienceSection: React.FC = () => {
+  const [expandedMap, setExpandedMap] = useState<Record<string, boolean>>({});
+
+  const toggleExpand = (id: string) => {
+    setExpandedMap(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
+
   return (
     <ExperienceWrapper id="experience">
       <Container>
@@ -173,6 +226,13 @@ export const ExperienceSection: React.FC = () => {
         <TimelineContainer>
           {experiences.map((exp, index) => {
             const isEven = index % 2 === 0;
+            const points = exp.bulletPoints && exp.bulletPoints.length > 0
+              ? exp.bulletPoints
+              : [exp.work];
+            const isExpanded = !!expandedMap[exp.id];
+            const hasMore = points.length > 3;
+            const visiblePoints = isExpanded ? points : points.slice(0, 3);
+
             return (
               <TimelineItem
                 key={exp.id}
@@ -199,7 +259,36 @@ export const ExperienceSection: React.FC = () => {
                     <span>{exp.year}</span>
                   </DurationBadge>
 
-                  <WorkDescription>{exp.work}</WorkDescription>
+                  <BulletList>
+                    <AnimatePresence initial={false}>
+                      {visiblePoints.map((point, pIdx) => (
+                        <BulletItem
+                          key={pIdx}
+                          initial={{ opacity: 0, y: -6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -6 }}
+                          transition={{ duration: 0.2, delay: pIdx >= 3 ? (pIdx - 3) * 0.05 : 0 }}
+                        >
+                          {point}
+                        </BulletItem>
+                      ))}
+                    </AnimatePresence>
+                  </BulletList>
+
+                  {hasMore && (
+                    <ShowMoreToggle
+                      type="button"
+                      onClick={() => toggleExpand(exp.id)}
+                      aria-expanded={isExpanded}
+                    >
+                      <span>
+                        {isExpanded
+                          ? 'Show Less'
+                          : `Show More (+${points.length - 3} more)`}
+                      </span>
+                      {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                    </ShowMoreToggle>
+                  )}
 
                   {exp.skills && (
                     <SkillsRow>

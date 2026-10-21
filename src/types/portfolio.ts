@@ -18,6 +18,7 @@ export interface Experience {
   name: string;
   jobTitle: string;
   work: string;
+  bulletPoints?: string[];
   year: string;
   logo: string;
   skills?: string[];

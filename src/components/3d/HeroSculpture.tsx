@@ -13,6 +13,8 @@ const CanvasContainer = styled.div`
   justify-content: center;
   pointer-events: auto;
   cursor: grab;
+  user-select: none;
+  touch-action: none;
 
   &:active {
     cursor: grabbing;
@@ -23,6 +25,7 @@ const CanvasContainer = styled.div`
     height: 100% !important;
     outline: none;
     border-radius: 24px;
+    display: block;
   }
 `;
 
@@ -86,6 +89,10 @@ export const HeroSculpture: React.FC = () => {
     const accentColor = new THREE.Color(theme.accent);
     const secondaryColor = new THREE.Color(theme.accentSecondary);
 
+    // Master sculpture group for smooth mouse parallax tilt
+    const sculptureGroup = new THREE.Group();
+    scene.add(sculptureGroup);
+
     // Outer Geometric Wireframe (Icosahedron)
     const outerGeo = new THREE.IcosahedronGeometry(2.1, 1);
     const outerMat = new THREE.MeshStandardMaterial({
@@ -97,7 +104,7 @@ export const HeroSculpture: React.FC = () => {
       opacity: 0.75
     });
     const outerMesh = new THREE.Mesh(outerGeo, outerMat);
-    scene.add(outerMesh);
+    sculptureGroup.add(outerMesh);
 
     // Inner Glowing Core (Torus Knot)
     const innerGeo = new THREE.TorusKnotGeometry(0.9, 0.25, 90, 16);
@@ -109,7 +116,7 @@ export const HeroSculpture: React.FC = () => {
       emissiveIntensity: 0.35
     });
     const innerMesh = new THREE.Mesh(innerGeo, innerMat);
-    scene.add(innerMesh);
+    sculptureGroup.add(innerMesh);
 
     // Particle Cloud / Orbiting Starfield
     const particlesCount = 200;
@@ -145,7 +152,7 @@ export const HeroSculpture: React.FC = () => {
     pointLight2.position.set(-4, -4, 2);
     scene.add(pointLight2);
 
-    // Mouse & Drag Interaction
+    // Mouse & Drag Interaction with strictly bounded physics
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
@@ -157,31 +164,43 @@ export const HeroSculpture: React.FC = () => {
     let dragVelocityX = 0;
     let dragVelocityY = 0;
 
-    const onPointerMove = (e: MouseEvent) => {
+    const onPointerMove = (e: MouseEvent | TouchEvent) => {
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+      const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+
       const rect = container.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      targetX = x * 2;
-      targetY = y * 2;
+      const normX = (clientX - (rect.left + rect.width / 2)) / (window.innerWidth * 0.5);
+      const normY = (clientY - (rect.top + rect.height / 2)) / (window.innerHeight * 0.5);
+
+      // Clamp mouse target to [-1, 1] so distant pointers never blow up
+      targetX = Math.max(-1, Math.min(1, normX));
+      targetY = Math.max(-1, Math.min(1, normY));
 
       if (isDragging) {
-        const deltaX = e.clientX - prevPointerX;
-        const deltaY = e.clientY - prevPointerY;
-        dragVelocityX = deltaX * 0.008;
-        dragVelocityY = deltaY * 0.008;
+        const deltaX = Math.max(-30, Math.min(30, clientX - prevPointerX));
+        const deltaY = Math.max(-30, Math.min(30, clientY - prevPointerY));
+
+        dragVelocityX = deltaX * 0.003;
+        dragVelocityY = deltaY * 0.003;
+
         outerMesh.rotation.y += dragVelocityX;
         outerMesh.rotation.x += dragVelocityY;
-        innerMesh.rotation.y += dragVelocityX * 1.2;
-        innerMesh.rotation.x += dragVelocityY * 1.2;
-        prevPointerX = e.clientX;
-        prevPointerY = e.clientY;
+        innerMesh.rotation.y += dragVelocityX * 1.1;
+        innerMesh.rotation.x += dragVelocityY * 1.1;
+
+        prevPointerX = clientX;
+        prevPointerY = clientY;
       }
     };
 
-    const onPointerDown = (e: MouseEvent) => {
+    const onPointerDown = (e: MouseEvent | TouchEvent) => {
       isDragging = true;
-      prevPointerX = e.clientX;
-      prevPointerY = e.clientY;
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+      const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+      prevPointerX = clientX;
+      prevPointerY = clientY;
+      dragVelocityX = 0;
+      dragVelocityY = 0;
     };
 
     const onPointerUp = () => {
@@ -189,8 +208,13 @@ export const HeroSculpture: React.FC = () => {
     };
 
     window.addEventListener('mousemove', onPointerMove, { passive: true });
+    window.addEventListener('touchmove', onPointerMove, { passive: true });
+
     container.addEventListener('mousedown', onPointerDown);
+    container.addEventListener('touchstart', onPointerDown, { passive: true });
+
     window.addEventListener('mouseup', onPointerUp);
+    window.addEventListener('touchend', onPointerUp);
 
     // Responsive Resize
     const handleResize = () => {
@@ -203,46 +227,57 @@ export const HeroSculpture: React.FC = () => {
     };
     window.addEventListener('resize', handleResize);
 
-    // Animation Loop
+    // Animation Loop with capped delta time
     let animId: number;
-    const clock = new THREE.Clock();
+    let lastTime = performance.now();
 
-    const animate = () => {
+    const animate = (currentTime: number) => {
       animId = requestAnimationFrame(animate);
-      const elapsedTime = clock.getElapsedTime();
+
+      const deltaMs = Math.min(currentTime - lastTime, 50); // cap max delta to 50ms (avoid tab switch jumps)
+      lastTime = currentTime;
+      const timeSec = currentTime * 0.001;
 
       // Soft Mouse Parallax Easing
       mouseX += (targetX - mouseX) * 0.05;
       mouseY += (targetY - mouseY) * 0.05;
 
+      // Gentle parallax tilt of the entire sculpture group (does NOT accelerate rotation)
+      sculptureGroup.rotation.y = mouseX * 0.35;
+      sculptureGroup.rotation.x = -mouseY * 0.25;
+
       // Inertia decay if not dragging
       if (!isDragging) {
-        dragVelocityX *= 0.95;
-        dragVelocityY *= 0.95;
+        dragVelocityX *= 0.92;
+        dragVelocityY *= 0.92;
         outerMesh.rotation.y += dragVelocityX;
         outerMesh.rotation.x += dragVelocityY;
       }
 
-      // Base Rotations
-      outerMesh.rotation.x += 0.003 + mouseY * 0.02;
-      outerMesh.rotation.y += 0.005 + mouseX * 0.02;
+      // Smooth, constant base rotation speed calibrated per delta
+      const speedMultiplier = deltaMs / 16.667;
+      outerMesh.rotation.x += 0.002 * speedMultiplier;
+      outerMesh.rotation.y += 0.0035 * speedMultiplier;
 
-      innerMesh.rotation.x += -0.005 - mouseY * 0.015;
-      innerMesh.rotation.y += 0.008 - mouseX * 0.015;
+      innerMesh.rotation.x -= 0.003 * speedMultiplier;
+      innerMesh.rotation.y += 0.0045 * speedMultiplier;
 
-      particleCloud.rotation.y = elapsedTime * 0.05;
-      particleCloud.rotation.x = elapsedTime * 0.03;
+      particleCloud.rotation.y = timeSec * 0.04;
+      particleCloud.rotation.x = timeSec * 0.02;
 
       renderer.render(scene, camera);
     };
 
-    animate();
+    animId = requestAnimationFrame(animate);
 
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener('mousemove', onPointerMove);
+      window.removeEventListener('touchmove', onPointerMove);
       container.removeEventListener('mousedown', onPointerDown);
+      container.removeEventListener('touchstart', onPointerDown);
       window.removeEventListener('mouseup', onPointerUp);
+      window.removeEventListener('touchend', onPointerUp);
       window.removeEventListener('resize', handleResize);
       renderer.dispose();
       outerGeo.dispose();
