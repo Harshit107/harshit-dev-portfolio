@@ -28,10 +28,10 @@ export const personalData = {
   avatar: aboutPhoto,
   resumeUrl: 'https://drive.google.com/file/d/1Cs2Ak0mgI7Ae5zXXlBuTkcqSzY2XB6mi/view',
   headline: 'Full-Stack Software Developer & AI Systems Engineer',
-  bio: `Software Developer at Cornerstone OnDemand with 3+ years of expertise engineering scalable distributed web applications, configurable enterprise workflow engines, and low-latency UI architectures. Proficient across the modern JavaScript/TypeScript stack (React, Next.js, Node.js, GraphQL) and enterprise backend (Java, Spring Boot, PostgreSQL, MongoDB, Redis). Actively pioneering AI Engineering workflows including Model Context Protocol (MCP) design, LLM orchestration, and developer tooling.`,
+  bio: `Software Developer at Cornerstone OnDemand with 5+ years of expertise engineering scalable distributed web applications, configurable enterprise workflow engines, and low-latency UI architectures. Proficient across the modern JavaScript/TypeScript stack (React, Next.js, Node.js, GraphQL) and enterprise backend (Java, Spring Boot, PostgreSQL, MongoDB, Redis). Actively pioneering AI Engineering workflows including Model Context Protocol (MCP) design, LLM orchestration, and developer tooling.`,
   whoIsHarshit: `Module owner and core platform engineer at Cornerstone OnDemand. Proven track record leading end-to-end architectures: from JSON-based configuration migrations that reduced manual setup by 70%, to Apollo Client GraphQL caching cutting render latency by 30%, and centralized feature-flagging dashboards slashing debugging cycles from 2 hours to 30 minutes. Passionate about system performance, WCAG accessibility, Black Duck security compliance, and AI-assisted engineering.`,
   stats: [
-    { label: 'Years Experience', value: '3+' },
+    { label: 'Years Experience', value: '5+' },
     { label: 'Manual Setup Cut', value: '70%' },
     { label: 'API Latency Drop', value: '30%' },
     { label: 'GPA Score', value: '8.27' }
