@@ -6,7 +6,7 @@ import { personalData } from '../../data/portfolioData';
 
 const FooterWrapper = styled.footer`
   border-top: 1px solid ${({ theme }) => theme.borderColor};
-  padding: 3rem 0;
+  padding: 2.5rem 0;
   background: ${({ theme }) => theme.bgPrimary};
   position: relative;
   z-index: 2;
@@ -44,27 +44,6 @@ const BrandBlock = styled.div`
   }
 `;
 
-const StatusPill = styled.div`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-  color: ${({ theme }) => theme.accent};
-  background: ${({ theme }) => theme.accentMuted};
-  border: 1px solid ${({ theme }) => theme.accentGlow};
-  padding: 0.35rem 0.85rem;
-  border-radius: 9999px;
-
-  .pulse {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: ${({ theme }) => theme.accent};
-    box-shadow: 0 0 8px ${({ theme }) => theme.accent};
-  }
-`;
-
 const ScrollTopButton = styled.button`
   width: 40px;
   height: 40px;
@@ -99,11 +78,6 @@ export const Footer: React.FC = () => {
               © {new Date().getFullYear()} Harshit Keshari. Crafted with precision & 3D depth.
             </div>
           </BrandBlock>
-
-          <StatusPill>
-            <span className="pulse" />
-            <span>React 19 • TypeScript • Three.js</span>
-          </StatusPill>
 
           <ScrollTopButton onClick={scrollToTop} title="Scroll to Top" aria-label="Scroll to top">
             <ArrowUp size={18} />

@@ -20,20 +20,20 @@ export const personalData = {
   role: 'Software Developer',
   company: 'Cornerstone OnDemand',
   companyUrl: 'https://www.cornerstoneondemand.com/',
-  location: 'Andal, Durgapur, West Bengal, India',
-  email: 'Harshit107.in@gmail.com',
+  location: 'Pune, IN / Durgapur, West Bengal, India',
+  email: 'harshit107.in@gmail.com',
   secondaryEmail: 'Contact@harshit107.in',
   phone: '+91 7501781756',
   avatar: aboutPhoto,
   resumeUrl: 'https://drive.google.com/file/d/1Cs2Ak0mgI7Ae5zXXlBuTkcqSzY2XB6mi/view',
-  headline: 'Full-Stack Developer & UI Architect',
-  bio: `I am Harshit Keshari, currently working as a Software Developer at Cornerstone OnDemand. Known in the developer community as Harshit107, I specialize in designing scalable web applications using React, Next.js, TypeScript, Node.js, and GraphQL. Strong focus on frontend performance optimization, accessibility (WCAG), and clean UI architecture.`,
-  whoIsHarshit: `Founding team member and module owner for a core product area at Cornerstone OnDemand. I specialize in designing API-driven systems, integrating REST and GraphQL services, and working with PostgreSQL, MongoDB, and Firebase. Proven track record of improving UI responsiveness, AI bot-friendly structures, and developer productivity through reusable design systems and tooling.`,
+  headline: 'Full-Stack Software Developer & AI Systems Engineer',
+  bio: `Software Developer at Cornerstone OnDemand with 3+ years of expertise engineering scalable distributed web applications, configurable enterprise workflow engines, and low-latency UI architectures. Proficient across the modern JavaScript/TypeScript stack (React, Next.js, Node.js, GraphQL) and enterprise backend (Java, Spring Boot, PostgreSQL, MongoDB, Redis). Actively pioneering AI Engineering workflows including Model Context Protocol (MCP) design, LLM orchestration, and developer tooling.`,
+  whoIsHarshit: `Module owner and core platform engineer at Cornerstone OnDemand. Proven track record leading end-to-end architectures: from JSON-based configuration migrations that reduced manual setup by 70%, to Apollo Client GraphQL caching cutting render latency by 30%, and centralized feature-flagging dashboards slashing debugging cycles from 2 hours to 30 minutes. Passionate about system performance, WCAG accessibility, Black Duck security compliance, and AI-assisted engineering.`,
   stats: [
     { label: 'Years Experience', value: '3+' },
-    { label: 'Production Apps', value: '10+' },
-    { label: 'Core Products Owned', value: '1' },
-    { label: 'Technologies', value: '20+' }
+    { label: 'Manual Setup Cut', value: '70%' },
+    { label: 'API Latency Drop', value: '30%' },
+    { label: 'GPA Score', value: '8.27' }
   ]
 };
 
@@ -42,30 +42,41 @@ export const experiences: Experience[] = [
     id: 'csod',
     name: 'Cornerstone OnDemand',
     jobTitle: 'Software Developer',
-    year: 'May 2024 — Present (2+ Years)',
-    work: 'Founding team member and module owner for a core product area at Cornerstone OnDemand. Responsible for end-to-end design, development, and maintenance using React, TypeScript, Node.js, and GraphQL. Driving architectural decisions, performance optimization, accessibility compliance (WCAG), and resilient API integrations.',
+    year: 'May 2024 — Present (Pune, IN)',
+    work: 'Lead end-to-end development of configurable workflow and permission-management platforms, enabling dynamic multi-level forms, granular field-level access controls, and self-service administration tools. Architected a JSON-based configuration migration pipeline across staging → pilot → production with schema validation, async processing, and rollback safety (reducing manual setup effort by 70%). Diagnosed GraphQL re-fetching bottlenecks and integrated client-side caching & batching via Apollo Client, reducing redundant API calls and cutting render latency by 30%. Built centralized configuration dashboards to dynamically toggle UI feature flags and logging levels, slashing debug cycles from 2 hrs to 30 mins. Maintained Black Duck compliance and WCAG semantic accessibility.',
     logo: cornerstoneLogo,
-    skills: ['React', 'TypeScript', 'Node.js', 'GraphQL', 'Performance', 'WCAG', 'Architecture'],
+    skills: [
+      'React',
+      'TypeScript',
+      'GraphQL',
+      'Node.js',
+      'Express',
+      'Java',
+      'Spring Boot',
+      'Apollo Client',
+      'Black Duck',
+      'WCAG'
+    ],
     current: true
   },
   {
     id: 'hexagon',
     name: 'Hexagon Manufacturing Intelligence',
-    jobTitle: 'Junior Software Developer',
-    year: 'Nov 2022 — May 2024 (1.5 Years)',
-    work: 'Engineered a specialized module that enables high-fidelity bi-directional conversion of complex 3D mechanical models between international standard REXS and JSON formats.',
+    jobTitle: 'Jr Software Developer (R & D)',
+    year: 'Dec 2022 — May 2024 (1.5 Years • Pune, IN)',
+    work: 'Engineered a specialized C# export module to serialize and transform complex 3D mechanical models into international standard REXS-compliant format, establishing an RPC-based inter-service communication layer for reliable data exchange. Developed an Apache ECharts-based visualization module supporting dynamic real-time chart rendering and configuration-driven customization. Optimized client-side rendering performance for large-scale engineering datasets through high-efficiency memory management and state batching.',
     logo: hexagonLogo,
-    skills: ['JavaScript', 'C#', 'Smalltalk', '3D Data Modeling', 'JSON Serialization'],
+    skills: ['React', 'JavaScript', 'C#', 'Apache ECharts', 'REXS 3D Spec', 'RPC Protocol', 'State Optimization'],
     current: false
   },
   {
     id: 'mtx',
     name: 'MTX Group',
-    jobTitle: 'Salesforce Developer',
-    year: 'Jan 2022 — Nov 2022 (11 Months)',
-    work: 'Architected and deployed enterprise Lightning Web Components (LWC) for customer complaints registration and automated workflow data ingestion via Salesforce web-to-case capabilities, dramatically cutting manual resolution time.',
+    jobTitle: 'Consultant Trainee',
+    year: 'Jan 2022 — Nov 2022 (11 Months • Hyderabad, IN)',
+    work: 'Engineered Salesforce Lightning Web Components (LWC) to streamline customer complaint workflows and automate Web-to-Case data ingestion. Formulated customized data models and robust validation logic using Apex and SOQL, reducing manual customer service processing effort by 60%.',
     logo: mtxLogo,
-    skills: ['Salesforce LWC', 'Apex', 'JavaScript', 'Process Automation'],
+    skills: ['Salesforce LWC', 'Apex', 'SOQL', 'JavaScript', 'Workflow Automation'],
     current: false
   },
   {
@@ -82,14 +93,36 @@ export const experiences: Experience[] = [
 
 export const projects: Project[] = [
   {
+    id: 'freely-email-ecosystem',
+    name: 'FreelyEmail Ecosystem & Central Logging',
+    tagline: 'Transactional Mail Engine, NPM Library & Distributed Logger',
+    description: 'A complete developer ecosystem featuring FreelyEmail-API (Node.js/Express/MongoDB), a zero-dependency native Node 18 client SDK published on NPM, and a centralized TypeScript logging microservice with a real-time observability dashboard for distributed tracing and error telemetry.',
+    codeLink: 'https://github.com/Harshit107/FreelyEmail-API',
+    liveLink: 'https://www.npmjs.com/package/freely-email?activeTab=readme',
+    image: freelyEmailImg,
+    tech: ['Node.js', 'Express', 'TypeScript', 'MongoDB', 'NPM Package', 'Distributed Logging', 'Telemetry'],
+    featured: true
+  },
+  {
+    id: 'one-login-identity',
+    name: 'OneLogin Identity Platform',
+    tagline: 'Enterprise SSO, Decoupled RBAC & Two-Factor QR Security',
+    description: 'Full-stack authentication and identity suite featuring a decoupled React 19 + TypeScript + Tailwind v4 client with QR code 2FA challenge workflows, paired with an Express/MongoDB backend implementing BCrypt, JWT session persistence, and granular permission enforcement.',
+    codeLink: 'https://github.com/Harshit107/OneLogin',
+    liveLink: 'https://github.com/Harshit107/OneLogin',
+    image: expensifyImg,
+    tech: ['React 19', 'TypeScript', 'Tailwind CSS v4', 'Node.js', 'Express', 'JWT', 'QR 2FA', 'MongoDB'],
+    featured: true
+  },
+  {
     id: 'digital-classroom',
-    name: 'Digital Classroom',
-    tagline: 'Modern LMS & Video Conferencing Ecosystem',
-    description: 'A full-stack collaborative platform providing real-time classroom management, automated biometric attendance calculation, WebRTC live video meetings, and automated transactional email dispatching.',
+    name: 'Digital Classroom Platform',
+    tagline: 'Collaborative LMS & WebRTC Real-Time Conferencing',
+    description: 'A full-stack collaborative platform with Role-Based Access Control (RBAC), real-time Jitsi WebRTC video conferencing, secure document upload/sharing with multi-tier visibility constraints, and automated transactional AWS-SES notification workflows.',
     codeLink: 'https://github.com/Harshit107/DigitalClassroom',
     liveLink: 'https://Harshit107.tech',
     image: digitalClassroomImg,
-    tech: ['Android', 'Node.js', 'Express', 'MongoDB', 'Firebase', 'AWS'],
+    tech: ['React', 'Android', 'Node.js', 'Express', 'MongoDB', 'AWS-SES', 'Jitsi WebRTC', 'RBAC'],
     featured: true
   },
   {
@@ -101,28 +134,17 @@ export const projects: Project[] = [
     liveLink: 'https://appstorein.netlify.app',
     image: appStoreImg,
     tech: ['Android', 'Node.js', 'Express', 'MongoDB', 'Firebase', 'AWS'],
-    featured: true
+    featured: false
   },
   {
     id: 'expensify',
     name: 'Expensify',
     tagline: 'Interactive Financial Tracker & Analytics',
-    description: 'Modern financial analytics dashboard featuring interactive data visualizations via eCharts, multi-criteria filtering, instantaneous search queries, and Google OAuth 2.0 authentication.',
+    description: 'Modern financial analytics dashboard featuring interactive data visualizations via Apache eCharts, multi-criteria filtering, instantaneous search queries, and Google OAuth 2.0 authentication.',
     codeLink: 'https://github.com/Harshit107/expensify',
     liveLink: 'https://myexpensify.netlify.app',
     image: expensifyImg,
     tech: ['React', 'JavaScript', 'eCharts', 'Firebase Auth', 'CSS Modules'],
-    featured: true
-  },
-  {
-    id: 'freely-email',
-    name: 'Freely-Email',
-    tagline: 'Developer NPM Library & Mail Microservice',
-    description: 'A robust developer API and published NPM library automating transactional mail delivery with custom domain configuration, SPF/DKIM validation, and rate-limited queueing.',
-    codeLink: 'https://github.com/Harshit107/FreelyEmail-API',
-    liveLink: 'https://www.npmjs.com/package/freely-email?activeTab=readme',
-    image: freelyEmailImg,
-    tech: ['Node.js', 'Express', 'Mongoose', 'NPM Package', 'SMTP'],
     featured: false
   },
   {
@@ -135,86 +157,78 @@ export const projects: Project[] = [
     image: uemConnectImg,
     tech: ['Android', 'Firebase Realtime DB', 'AWS SES', 'Push Notifications'],
     featured: false
-  },
-  {
-    id: 'one-login',
-    name: 'OneLogin Identity',
-    tagline: 'Federated SSO & Authentication Framework',
-    description: 'Full-stack authentication suite modeled after Google Single Sign-On with MFA challenge workflows, session persistence, and OAuth 2.0 provider integration.',
-    codeLink: 'https://github.com/Harshit107/oneLogin',
-    liveLink: 'https://github.com/Harshit107/oneLogin',
-    image: expensifyImg,
-    tech: ['React', 'TypeScript', 'Firebase Auth', 'JWT', 'OAuth2'],
-    featured: false
   }
 ];
 
 export const skillCategories: SkillCategory[] = [
   {
-    title: 'Core Languages',
-    description: 'Foundation and high-performance computing',
+    title: 'AI Engineering & Agents',
+    description: 'Model context protocols, agent design, and AI tooling',
     skills: [
-      { name: 'TypeScript', level: 'Advanced', category: 'languages' },
-      { name: 'JavaScript (ESNext)', level: 'Advanced', category: 'languages' },
-      { name: 'Java', level: 'Proficient', category: 'languages' },
-      { name: 'SQL', level: 'Proficient', category: 'languages' }
+      { name: 'MCP Design & Implementation', level: 'Advanced', category: 'familiar' },
+      { name: 'Claude & Kiro SDKs', level: 'Advanced', category: 'familiar' },
+      { name: 'Prompt Engineering & System Directives', level: 'Expert', category: 'familiar' },
+      { name: 'AI-Assisted Development Workflows', level: 'Expert', category: 'familiar' }
     ]
   },
   {
     title: 'Frontend Architecture',
-    description: 'Modern responsive SPAs & microfrontends',
+    description: 'High-performance SPAs, design systems & accessibility',
     skills: [
       { name: 'React 18 / 19', level: 'Expert', category: 'frontend' },
+      { name: 'TypeScript & JavaScript (ESNext)', level: 'Expert', category: 'frontend' },
       { name: 'Next.js', level: 'Advanced', category: 'frontend' },
-      { name: 'Redux Toolkit', level: 'Advanced', category: 'frontend' },
+      { name: 'Redux & Zustand', level: 'Advanced', category: 'frontend' },
       { name: 'TanStack Query', level: 'Advanced', category: 'frontend' },
-      { name: 'Framer Motion', level: 'Advanced', category: 'frontend' },
-      { name: 'Apollo Client', level: 'Proficient', category: 'frontend' },
+      { name: 'Apollo Client (Caching/Batching)', level: 'Advanced', category: 'frontend' },
+      { name: 'Tailwind CSS & Shadcn UI', level: 'Advanced', category: 'frontend' },
       { name: 'Styled Components', level: 'Expert', category: 'frontend' },
-      { name: 'DND Kit', level: 'Proficient', category: 'frontend' },
-      { name: 'HTML5 & Modern CSS3', level: 'Expert', category: 'frontend' }
+      { name: 'WCAG Accessibility & ARIA', level: 'Advanced', category: 'frontend' },
+      { name: 'Storybook & Jest', level: 'Proficient', category: 'frontend' }
     ]
   },
   {
-    title: 'Backend & APIs',
-    description: 'Scalable cloud services & data streaming',
+    title: 'Backend & Distributed APIs',
+    description: 'Scalable services, schema validation & microservices',
     skills: [
-      { name: 'Node.js', level: 'Advanced', category: 'backend' },
-      { name: 'Express.js', level: 'Advanced', category: 'backend' },
-      { name: 'GraphQL', level: 'Advanced', category: 'backend' },
-      { name: 'RESTful API Design', level: 'Expert', category: 'backend' }
+      { name: 'Node.js & Express.js', level: 'Advanced', category: 'backend' },
+      { name: 'GraphQL & RESTful APIs', level: 'Expert', category: 'backend' },
+      { name: 'Java & Spring Boot', level: 'Proficient', category: 'backend' },
+      { name: 'Schema Validation & JSON Migration', level: 'Expert', category: 'backend' },
+      { name: 'RPC-Based Service Communication', level: 'Advanced', category: 'backend' }
     ]
   },
   {
     title: 'Databases & Caching',
-    description: 'Relational, document, and key-value stores',
+    description: 'Relational, document, and high-speed in-memory caches',
     skills: [
       { name: 'PostgreSQL', level: 'Proficient', category: 'databases' },
-      { name: 'MongoDB', level: 'Advanced', category: 'databases' },
+      { name: 'MongoDB & Mongoose', level: 'Advanced', category: 'databases' },
       { name: 'Firebase / Firestore', level: 'Advanced', category: 'databases' },
       { name: 'Redis', level: 'Proficient', category: 'databases' }
     ]
   },
   {
-    title: 'DevOps & Tooling',
-    description: 'CI/CD, observability, and containerization',
+    title: 'DevOps & Reliability',
+    description: 'CI/CD, observability, security compliance & metrics',
     skills: [
-      { name: 'Docker', level: 'Proficient', category: 'devops' },
       { name: 'Git & GitHub Workflows', level: 'Expert', category: 'devops' },
+      { name: 'Docker Containerization', level: 'Proficient', category: 'devops' },
       { name: 'Jenkins CI/CD', level: 'Intermediate', category: 'devops' },
-      { name: 'Postman', level: 'Advanced', category: 'devops' },
-      { name: 'Jira', level: 'Advanced', category: 'devops' },
-      { name: 'Splunk Observability', level: 'Intermediate', category: 'devops' }
+      { name: 'Splunk Observability & Logging', level: 'Intermediate', category: 'devops' },
+      { name: 'Black Duck Security Compliance', level: 'Proficient', category: 'devops' },
+      { name: 'AWS (SES, S3, EC2)', level: 'Intermediate', category: 'devops' },
+      { name: 'Postman & Amplitude Analytics', level: 'Advanced', category: 'devops' }
     ]
   },
   {
-    title: 'Also Familiar With',
-    description: 'Cross-platform mobile and enterprise frameworks',
+    title: 'Enterprise & Mobile Systems',
+    description: '3D modeling formats, Salesforce and native mobile',
     skills: [
-      { name: 'AWS (SES, S3, EC2)', level: 'Intermediate', category: 'familiar' },
-      { name: 'Spring Boot', level: 'Intermediate', category: 'familiar' },
-      { name: 'Native Android SDK', level: 'Proficient', category: 'familiar' },
-      { name: 'Three.js / WebGL', level: 'Proficient', category: 'familiar' }
+      { name: 'Apache ECharts Data Viz', level: 'Advanced', category: 'familiar' },
+      { name: 'REXS 3D Mechanical Data Serialization', level: 'Proficient', category: 'familiar' },
+      { name: 'Salesforce LWC & Apex', level: 'Proficient', category: 'familiar' },
+      { name: 'Native Android SDK & Java', level: 'Proficient', category: 'familiar' }
     ]
   }
 ];
@@ -224,8 +238,8 @@ export const educationList: Education[] = [
     id: 'uem',
     institution: 'University of Engineering and Management (UEM) Jaipur',
     degree: 'Bachelor of Technology in Computer Science & Engineering',
-    duration: '2018 — 2022',
-    grade: '8.3 CGPA',
+    duration: '2018 — Jun 2022',
+    grade: 'GPA: 8.27 / 10',
     image: uemLogo,
     completed: true
   },
@@ -243,9 +257,9 @@ export const educationList: Education[] = [
 export const socialLinks: SocialLink[] = [
   {
     name: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/harshit-keshari-296823156/',
+    url: 'https://www.linkedin.com/in/harshit107/',
     icon: 'linkedin',
-    username: 'harshit-keshari'
+    username: 'harshit107'
   },
   {
     name: 'GitHub',

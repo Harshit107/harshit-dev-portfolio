@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import {
-  Code2,
   Layout,
   Server,
   Database,
-  TerminalSquare,
   Wrench,
+  Bot,
+  ShieldCheck,
   Sparkles
 } from 'lucide-react';
 import { Container } from '../ui/Container';
@@ -109,12 +109,12 @@ const SkillItemRow = styled.div`
 `;
 
 const categoryIcons: Record<string, React.ReactNode> = {
-  'Core Languages': <Code2 size={20} />,
+  'AI Engineering & Agents': <Bot size={20} />,
   'Frontend Architecture': <Layout size={20} />,
-  'Backend & APIs': <Server size={20} />,
+  'Backend & Distributed APIs': <Server size={20} />,
   'Databases & Caching': <Database size={20} />,
-  'DevOps & Tooling': <TerminalSquare size={20} />,
-  'Also Familiar With': <Wrench size={20} />
+  'DevOps & Reliability': <ShieldCheck size={20} />,
+  'Enterprise & Mobile Systems': <Wrench size={20} />
 };
 
 export const SkillsSection: React.FC = () => {

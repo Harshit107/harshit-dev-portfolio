@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import {
   Layers,
   Cpu,
+  Bot,
+  Terminal,
   Sparkles
 } from 'lucide-react';
 import { Container } from '../ui/Container';
@@ -148,8 +150,8 @@ export const About: React.FC = () => {
       <Container>
         <SectionHeading
           badge="IDENTITY & PURPOSE"
-          title="Engineering Systems with Precision"
-          subtitle="A senior full-stack developer and module architect delivering mission-critical web applications."
+          title="Engineering High-Impact Systems"
+          subtitle="Software engineer and platform architect building scalable enterprise engines, low-latency APIs, and AI-augmented developer tooling."
         />
 
         <ContentGrid>
@@ -165,7 +167,7 @@ export const About: React.FC = () => {
             </div>
             <div className="tech-stamp">
               <Sparkles size={14} />
-              <span>Full-Stack & Web Performance</span>
+              <span>Full-Stack & AI Systems</span>
             </div>
           </PhotoPerspectiveFrame>
 
@@ -176,23 +178,17 @@ export const About: React.FC = () => {
               <a href={personalData.companyUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>
                 Cornerstone OnDemand
               </a>{' '}
-              and a graduate in Computer Science from the University of Engineering and Management (UEM) Jaipur.
+              and a graduate in Computer Science from the University of Engineering and Management (UEM) Jaipur (8.27 GPA).
             </BioParagraph>
 
             <BioParagraph>
               <strong>Who is Harshit Keshari (Harshit107)?</strong><br />
-              As a core module owner at Cornerstone, I drive the end-to-end design, implementation,
-              and maintenance of high-throughput web modules using React, TypeScript, Node.js, and GraphQL.
-              My work emphasizes microfrontends, web performance optimization, strict WCAG accessibility,
-              and maintainable software architectures.
+              As a core module owner at Cornerstone, I lead the end-to-end engineering of configurable enterprise platforms—from dynamic multi-level form builders with granular RBAC access controls, to JSON-based metadata migrations reducing manual deployment effort by 70%.
             </BioParagraph>
 
             <BioParagraph>
-              <strong>What do I build?</strong><br />
-              I specialize in designing resilient, API-driven systems connecting REST and GraphQL endpoints
-              with modern storage layers (PostgreSQL, MongoDB, and Firebase). I have a proven track record of
-              boosting interface responsiveness, AI-readiness, and developer velocity through reusable design
-              systems and internal tooling.
+              <strong>Systems & Engineering Philosophy:</strong><br />
+              I specialize in identifying latency bottlenecks and designing scalable distributed solutions—such as batching GraphQL queries with Apollo Client to cut UI render latency by 30%, building centralized real-time logging and telemetry pipelines, and developing custom Model Context Protocol (MCP) tooling for AI-assisted engineering.
             </BioParagraph>
 
             <FeatureCardsGrid>
@@ -200,9 +196,9 @@ export const About: React.FC = () => {
                 <div className="icon-wrap">
                   <Layers size={18} />
                 </div>
-                <div className="card-title">Core Module Owner</div>
+                <div className="card-title">Configurable RBAC Engines</div>
                 <div className="card-desc">
-                  Leading frontend architecture, code quality, and production scalability at Cornerstone OnDemand.
+                  Building dynamic multi-tier form builders, self-service enterprise administration tools, and schema-validated migration workflows.
                 </div>
               </MiniFeatureCard>
 
@@ -210,9 +206,29 @@ export const About: React.FC = () => {
                 <div className="icon-wrap">
                   <Cpu size={18} />
                 </div>
-                <div className="card-title">Performance & WCAG</div>
+                <div className="card-title">GraphQL & Performance</div>
                 <div className="card-desc">
-                  Optimized Core Web Vitals, accessible design patterns, and clean component decoupling.
+                  Eliminating re-fetching bottlenecks with Apollo caching, optimizing large-dataset renders with Apache ECharts, and WCAG accessibility.
+                </div>
+              </MiniFeatureCard>
+
+              <MiniFeatureCard tilt={false} glowOnHover={false}>
+                <div className="icon-wrap">
+                  <Terminal size={18} />
+                </div>
+                <div className="card-title">Distributed APIs & Logging</div>
+                <div className="card-desc">
+                  Designing decoupled REST/GraphQL backends, NPM libraries, and centralized TypeScript telemetry & logging dashboards.
+                </div>
+              </MiniFeatureCard>
+
+              <MiniFeatureCard tilt={false} glowOnHover={false}>
+                <div className="icon-wrap">
+                  <Bot size={18} />
+                </div>
+                <div className="card-title">AI Engineering & MCP</div>
+                <div className="card-desc">
+                  Designing Model Context Protocol (MCP) tools, Claude/Kiro orchestration, prompt architectures, and AI-assisted workflows.
                 </div>
               </MiniFeatureCard>
             </FeatureCardsGrid>

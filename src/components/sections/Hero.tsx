@@ -72,7 +72,7 @@ const FloatingProfileCard = styled(motion.div)`
   gap: 0.85rem;
   box-shadow: ${({ theme }) => theme.shadowSubtle};
   z-index: 10;
-  max-width: 280px;
+  max-width: 300px;
 
   img.avatar {
     width: 44px;
@@ -94,7 +94,8 @@ const FloatingProfileCard = styled(motion.div)`
 
     .role {
       font-size: 0.75rem;
-      color: ${({ theme }) => theme.textSecondary};
+      color: ${({ theme }) => theme.accent};
+      font-weight: 500;
     }
   }
 `;
@@ -124,10 +125,11 @@ const TypewriterWrapper = styled.div`
   align-items: center;
   gap: 0.5rem;
   font-family: 'JetBrains Mono', monospace;
-  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
   font-weight: 600;
   color: ${({ theme }) => theme.textPrimary};
-  min-height: 2rem;
+  min-height: 2.2rem;
+  flex-wrap: wrap;
 
   .terminal-prompt {
     color: ${({ theme }) => theme.accent};
@@ -245,11 +247,11 @@ const StatItem = styled.div`
 `;
 
 const typewriterPhrases = [
-  'Full-Stack Developer',
-  'Cornerstone Module Owner',
-  'React & Next.js Architect',
-  'GraphQL & API Designer',
-  'UI/UX Performance Engineer'
+  'Scalable Web & Cloud Architectures',
+  'High-Performance React & Next.js Systems',
+  'GraphQL APIs & Apollo Client Optimization',
+  'Configurable Workflow & RBAC Platforms',
+  'AI Systems & Autonomous MCP Tooling'
 ];
 
 export const Hero: React.FC = () => {
@@ -259,7 +261,7 @@ export const Hero: React.FC = () => {
 
   useEffect(() => {
     const fullPhrase = typewriterPhrases[phraseIndex];
-    const speed = isDeleting ? 30 : 70;
+    const speed = isDeleting ? 30 : 65;
 
     const timer = setTimeout(() => {
       if (!isDeleting) {
@@ -286,7 +288,7 @@ export const Hero: React.FC = () => {
           <ContentCol>
             <GreetingBadgeRow>
               <Badge variant="accent" dot size="md">
-                Available for innovative projects
+                Available for high-impact technical initiatives
               </Badge>
               <Badge variant="outline" size="md">
                 <Briefcase size={12} style={{ marginRight: 4 }} />
@@ -301,7 +303,7 @@ export const Hero: React.FC = () => {
 
             <TypewriterWrapper>
               <span className="terminal-prompt">&gt;</span>
-              <span>I craft </span>
+              <span>Specializing in </span>
               <span className="highlight-word">{currentText}</span>
               <span className="cursor" />
             </TypewriterWrapper>
@@ -312,8 +314,7 @@ export const Hero: React.FC = () => {
                 {personalData.company}
               </a>
               . Known in the developer community as <strong>{personalData.handle}</strong>.
-              I build scalable, high-performance web systems with React, TypeScript, Node.js, and GraphQL,
-              focused on frontend performance, WCAG accessibility, and immersive user experiences.
+              I engineer scalable enterprise web platforms, dynamic workflow & permission engines, and low-latency API architectures with React, TypeScript, Node.js, GraphQL, and AI tooling.
             </BioSnippet>
 
             <CTAButtonGroup>
@@ -380,7 +381,7 @@ export const Hero: React.FC = () => {
               <img src={personalData.avatar} alt={personalData.name} className="avatar" />
               <div className="meta">
                 <span className="name">{personalData.name}</span>
-                <span className="role">{personalData.handle} • CSOD Core Module</span>
+                <span className="role">Software Developer @ Cornerstone</span>
               </div>
             </FloatingProfileCard>
           </VisualCol>

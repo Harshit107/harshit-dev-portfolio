@@ -47,14 +47,24 @@ const FormCol = styled.div`
 const ContactCard = styled(GlassCard)`
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  padding: 2rem;
+  gap: 1.5rem;
+  padding: 2.25rem;
 `;
 
 const ContactRow = styled.div`
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.85rem 1.15rem;
+  border-radius: 14px;
+  background: ${({ theme }) => theme.bgElevated};
+  border: 1px solid ${({ theme }) => theme.borderColor};
+  transition: all 0.25s ease;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.accentGlow};
+    transform: translateY(-2px);
+  }
 
   .icon-wrap {
     width: 44px;
@@ -72,12 +82,14 @@ const ContactRow = styled.div`
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    gap: 0.2rem;
 
     .label {
-      font-size: 0.775rem;
+      font-size: 0.75rem;
       font-family: 'JetBrains Mono', monospace;
       color: ${({ theme }) => theme.textMuted};
       text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .value {
@@ -89,10 +101,10 @@ const ContactRow = styled.div`
   }
 
   .copy-btn {
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-    background: ${({ theme }) => theme.bgElevated};
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: ${({ theme }) => theme.cardGlassBg};
     border: 1px solid ${({ theme }) => theme.borderColor};
     color: ${({ theme }) => theme.textSecondary};
     display: flex;
@@ -100,10 +112,12 @@ const ContactRow = styled.div`
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
+    flex-shrink: 0;
 
     &:hover {
       color: ${({ theme }) => theme.accent};
       border-color: ${({ theme }) => theme.accentGlow};
+      transform: scale(1.05);
     }
   }
 `;
@@ -111,8 +125,8 @@ const ContactRow = styled.div`
 const SocialGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
-  margin-top: 1rem;
+  gap: 1rem;
+  margin-top: 1.5rem;
 `;
 
 const SocialButton = styled.a`
@@ -120,8 +134,8 @@ const SocialButton = styled.a`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 1rem;
+  gap: 0.6rem;
+  padding: 1.15rem;
   border-radius: 14px;
   background: ${({ theme }) => theme.bgElevated};
   border: 1px solid ${({ theme }) => theme.borderColor};
@@ -131,7 +145,7 @@ const SocialButton = styled.a`
   &:hover {
     border-color: ${({ theme }) => theme.accent};
     background: ${({ theme }) => theme.accentMuted};
-    transform: translateY(-2px);
+    transform: translateY(-3px);
   }
 
   .name {
@@ -304,7 +318,7 @@ export const ContactSection: React.FC = () => {
                 <div className="details">
                   <span className="label">Location</span>
                   <span className="value">
-                    Kaviraj Gali North Bazar Andal, Durgapur, West Bengal (713321), India
+                    {personalData.location}
                   </span>
                 </div>
               </ContactRow>

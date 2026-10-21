@@ -139,13 +139,15 @@ export const ProjectsSection: React.FC = () => {
   const filteredProjects = projects.filter((project) => {
     if (activeFilter === 'All Projects') return true;
     if (activeFilter === 'Full-Stack & Web') {
-      return project.tech.some((t) => ['React', 'Node.js', 'Express', 'JavaScript'].includes(t));
+      return project.tech.some((t) => ['React', 'React 19', 'TypeScript', 'Node.js', 'Express', 'JavaScript'].includes(t));
     }
     if (activeFilter === 'Android & Mobile') {
       return project.tech.includes('Android');
     }
     if (activeFilter === 'APIs & Libraries') {
-      return project.tech.some((t) => ['Mongoose', 'NPM Package', 'OAuth2', 'JWT'].includes(t));
+      return project.tech.some((t) =>
+        ['NPM Package', 'Distributed Logging', 'Telemetry', 'Mongoose', 'OAuth2', 'JWT', 'QR 2FA', 'AWS-SES'].includes(t)
+      );
     }
     return true;
   });
