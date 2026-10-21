@@ -1,0 +1,7 @@
+# robots.txt for Harshit Keshari Portfolio (harshit107.in)
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://harshit107.in/sitemap.xml
+Sitemap: https://harshit107.github.io/sitemap.xml
