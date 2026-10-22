@@ -1,4 +1,5 @@
 import type { Project, Experience, Education, SocialLink, SkillCategory } from '../types/portfolio';
+import DOMAINS from '../config/domain';
 
 // Imported local images
 import aboutPhoto from '../assets/images/about-img-transparent.png';
@@ -23,7 +24,7 @@ export const personalData = {
   companyUrl: 'https://www.cornerstoneondemand.com/',
   location: 'Pune, IN / Durgapur, West Bengal, India',
   email: 'harshit107.in@gmail.com',
-  secondaryEmail: 'Contact@harshit107.in',
+  secondaryEmail: DOMAINS.PORTFOLIO.EMAIL,
   phone: '+91 7501781756',
   avatar: aboutPhoto,
   resumeUrl: 'https://drive.google.com/file/d/1Cs2Ak0mgI7Ae5zXXlBuTkcqSzY2XB6mi/view',

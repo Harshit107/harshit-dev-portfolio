@@ -20,6 +20,7 @@ import { GlassCard } from '../ui/GlassCard';
 import { Button } from '../ui/Button';
 import { personalData, socialLinks } from '../../data/portfolioData';
 import { breakpoints } from '../../theme/theme';
+import DOMAINS from '../../config/domain';
 
 const spin = keyframes`
   from { transform: rotate(0deg); }
@@ -292,7 +293,7 @@ export const ContactSection: React.FC = () => {
 
     try {
       // Integrated with Harshit's live FreelyEmail-API endpoint
-      const response = await fetch('https://freelyemail-api.harshit107.online/api/v1/emails/send', {
+      const response = await fetch(`${DOMAINS.EMAIL.API_V1_EMAILS}send`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
